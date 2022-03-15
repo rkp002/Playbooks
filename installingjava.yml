@@ -1,0 +1,10 @@
+---
+- hosts: webservers
+  become: true
+  tasks:
+    - name: downloading java JRE
+      yum:
+        state: latest
+    - name: installing OpenJDK
+      yum:
+        name: java-11

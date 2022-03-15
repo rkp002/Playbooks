@@ -1,0 +1,6 @@
+---
+  - hosts: webservers
+    become: true
+    tasks:
+    - name: ____creating users_____
+      user: name=venkat password=venkat uid=1002 groups=wheel
