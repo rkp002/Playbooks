@@ -1,0 +1,39 @@
+---
+- hosts: webservers
+  become: true
+  tasks:
+    - name: downloading java
+      yum:
+        state: latest
+    - name: installing OpenJdk
+      yum:
+        name: java-11
+    - lineinfile:
+        path: /etc/profile
+        line: 'export JAVA_HOME=/usr/lib/jvm/jre-11-openjdk'
+    - lineinfile:
+        path: /etc/profile
+        line:  'export JRE_HOME=/usr/lib/jvm/jre'
+    - name: Installing list of packages of tomcat
+      yum:
+        name: "{{ packages }}"
+      vars:
+        packages:
+          - tomcat
+          - tomcat-webapps
+          - tomcat-admin-webapps
+          - tomcat-docs-webapp
+          - tomcat-javadoc
+        state: present
+    - name: copying tomcat.users.xml file
+      copy:
+        src: /etc/ansible/playbooks/tomcat-users.xml
+        dest: /usr/share/tomcat/conf/tomcat-users.xml
+    - name: enabling tomcat service
+      systemd:
+        name: tomcat
+        enabled: yes
+    - name: starting tomcat service
+      systemd:
+        name: tomcat
+        state: started
