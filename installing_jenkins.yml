@@ -31,7 +31,7 @@
       yum:
         name: jenkins
         state: present
-# *********************************FOR CHANGING PORT WE CAN DO IT IN 2 WAYS. STEP1: RUN THIS PLAYBOOK ONCE EXECUTED GO TO ANY OF THE SERVER GET THE JENKINS CONGIF FILE D=FROM /etc/sysconfig/jenkins FILE COPY INTO CM AND CHANGE THE PORT AND RE-RUN THE PLAYBOOK SO THAT BELOW COPY COMMAND WILL REPLACE THE FILE INTO RM WITH UPDATED PORTNUMBER STEP2: COPY THE JENKINS FILE FROM INTERNET UPDATE THE PORT AND RUN THIS COMMAND***********************************#
+# *********************************FOR CHANGING PORT WE CAN DO IT IN 2 WAYS. STEP1: RUN THIS PLAYBOOK ONCE EXECUTED GO TO ANY OF THE SERVER GET THE JENKINS CONGIF FILE D=FROM /etc/sysconfig/jenkins (located in git under Playbooks repo with file name jenkins)  FILE COPY INTO CM AND CHANGE THE PORT AND RE-RUN THE PLAYBOOK SO THAT BELOW COPY COMMAND WILL REPLACE THE FILE INTO RM WITH UPDATED PORTNUMBER STEP2: COPY THE JENKINS FILE (located in git under Playbooks repo with file name jenkins) FROM INTERNET UPDATE THE PORT AND RUN THIS COMMAND***********************************#
     - name: copying jenkins file from CM to RM after updating a port number to 9090
       copy:
         src: /etc/ansible/playbooks/jenkins

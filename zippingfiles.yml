@@ -1,0 +1,9 @@
+---
+- hosts: webservers
+  become: true
+  tasks:
+    - name: zipping a folder
+      archive:
+        path: /home/ansible
+        dest: /home/ansible/venkat.zip
+        format: zip
