@@ -25,6 +25,8 @@
           - tomcat-docs-webapp
           - tomcat-javadoc
         state: present
+# *********************************FOR CHANGING PORT WE CAN DO IT IN 2 WAYS. STEP1: RUN THIS PLAYBOOK ONCE EXECUTED WE WILL GET ERROR BECAUSE SOURCE FILE IS NOT PRESENTED THEN GO TO ANY OF THE SERVER GET THE tomcat-users.xml FILE COPY INTO CM AND ADD THE USERS STEP2: COPY THE tomcat-users.xml FILE FROM INTERNET UPDATE THE ROLES AND RUN THIS COMMAND***********************************#
+
     - name: copying tomcat.users.xml file
       copy:
         src: /etc/ansible/playbooks/tomcat-users.xml

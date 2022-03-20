@@ -1,0 +1,33 @@
+---
+  - hosts: webservers
+    become: true
+    tasks:
+      - name: downloading java JRE
+        yum:
+          state: latest
+      - name: installing OpenJDK
+        yum:
+          name: java-11
+      - name: Setup Java environemnt variables
+        copy:
+          content: "export JAVA_HOME=/usr/lib/jvm/jre-11-openjdk \n"
+          dest: "/etc/profile.d/maven.sh"
+      - lineinfile:
+          path: /etc/profile.d/maven.sh
+          line: 'export JRE_HOME=/usr/lib/jvm/jre'
+      - name: creating directory
+        file: path=/opt/maven state=directory
+      - name: downloading Maven from internet
+        get_url: url=https://mirrors.estointernet.in/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz dest=/opt/maven/apache-maven-3.6.3-bin.tar.gz
+      - name: Extracting Maven
+        command: tar xvf /opt/maven/apache-maven-3.6.3-bin.tar.gz -C /opt/maven
+      - name: Move to smaller directory
+        command: mv /opt/maven/apache-maven-3.6.3 /opt/maven/maven
+      - lineinfile:
+          path: /etc/profile.d/maven.sh
+          line: 'export M2_HOME=/opt/venkat/maven'
+      - lineinfile:
+          path: /etc/profile.d/maven.sh
+          line: 'export PATH=${M2_HOME}/bin:${PATH}'
+      - name: source profile
+        shell: source /etc/profile
